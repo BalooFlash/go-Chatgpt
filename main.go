@@ -38,7 +38,7 @@ func main() {
 	tmpl = template.Must(template.ParseFiles("templates/index.html"))
 	// tmpl = template.Must(template.ParseFiles("templates/index.gohtml"))
 
-	fs := http.FileServer(http.Dir("./static"))
+	fs := http.FileServer(http.Dir("./static")) // File server
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 	mux.HandleFunc("/todo", todo)
 
