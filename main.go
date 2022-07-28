@@ -2,6 +2,7 @@ package main
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -28,11 +29,18 @@ func todo(w http.ResponseWriter, r *http.Request) {
 			{Item: "item 5", Done: true},
 		},
 	}
+
+	tmpl.Execute(w, data)
 }
 
 func main() {
 	mux := http.NewServeMux()
 	tmpl = template.Must(template.ParseFiles("templates/index.html"))
 	// tmpl = template.Must(template.ParseFiles("templates/index.gohtml"))
+
+	fs := http.FileServer(http.Dir("./static"))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 	mux.HandleFunc("/todo", todo)
+
+	log.Fatal(http.ListenAndServe(":9091", mux))
 }

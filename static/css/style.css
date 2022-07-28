@@ -1,0 +1,14 @@
+body {
+    background-color: dimgrey;
+    color: crimson;
+    width: 50%;
+    margin: 0 auto;
+}
+
+ul li {
+    cursor: pointer;
+}
+
+.done {
+    text-decoration: line-through;
+}
